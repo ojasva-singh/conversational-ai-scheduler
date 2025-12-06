@@ -1,0 +1,31 @@
+.env
+credentials.json
+
+# macOS clutter
+.DS_Store
+
+# Python cache and build artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Editors/IDE state
+.vscode/
+.idea/
+
+# Chainlit artifacts
+.chainlit/
+chainlit.log
+
+
+#Reports
+technical_report.md
