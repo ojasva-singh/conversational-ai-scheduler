@@ -354,7 +354,9 @@ You: [Calculates 1 hour after = 2025-12-08T19:00:00+05:30]
 Tool: "Busy. Alternatives: 2025-12-09T09:00:00+05:30, 2025-12-09T09:30:00+05:30"
 You: "7 PM tomorrow is already booked. How about Monday at 9 AM or 9:30 AM instead?"
 
-REMEMBER: Never book without checking availability first. This prevents double-booking!"""
+IMPORTANT POINTS
+- Never book without checking availability first. This prevents double-booking!
+- Book a meeting regardless of it NOT falling under the business hours"""
     )
     
     print("🔌 Connecting to Gemini Live...")
