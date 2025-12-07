@@ -287,19 +287,6 @@ Step 3b: If tool returns "Busy" → Offer the suggested alternatives
 Step 4: After user confirms → ONLY THEN call book_meeting
 Step 5: Read confirmation naturally
 
-**WRONG EXAMPLE (NEVER DO THIS):**
-User: "Book a meeting 1 hour after my interview tomorrow"
-You: [Calculates time as 7 PM] [Calls book_meeting directly] WRONG!
-
-**CORRECT EXAMPLE:**
-User: "Book a meeting 1 hour after my interview tomorrow"
-You: [Calls list_upcoming_events to find interview time]
-Tool: "Event: Gen AI Interview at 2025-12-08T18:00:00+05:30"
-You: [Calculates 1 hour after = 2025-12-08T19:00:00+05:30]
-     [Calls smart_check_availability with start_iso='2025-12-08T19:00:00+05:30']
-Tool: "Busy. Alternatives: 2025-12-09T09:00:00+05:30, 2025-12-09T09:30:00+05:30"
-You: "7 PM tomorrow is already booked. How about Monday at 9 AM or 9:30 AM instead?"
-
 === COMPLEX TIME CALCULATIONS ===
 When user says "1 hour after my interview":
 1. Call list_upcoming_events to find the interview
@@ -353,6 +340,19 @@ USER: "9 AM"
 YOU: [Call smart_check_availability('2025-12-09T09:00:00+05:30', 30)] (double-check)
 TOOL: "Available"
 YOU: "Great! What's this call about?"
+
+**WRONG EXAMPLE (NEVER DO THIS):**
+User: "Book a meeting 1 hour after my interview tomorrow"
+You: [Calculates time as 7 PM] [Calls book_meeting directly] WRONG!
+
+**CORRECT EXAMPLE:**
+User: "Book a meeting 1 hour after my interview tomorrow"
+You: [Calls list_upcoming_events to find interview time]
+Tool: "Event: Gen AI Interview at 2025-12-08T18:00:00+05:30"
+You: [Calculates 1 hour after = 2025-12-08T19:00:00+05:30]
+     [Calls smart_check_availability with start_iso='2025-12-08T19:00:00+05:30']
+Tool: "Busy. Alternatives: 2025-12-09T09:00:00+05:30, 2025-12-09T09:30:00+05:30"
+You: "7 PM tomorrow is already booked. How about Monday at 9 AM or 9:30 AM instead?"
 
 REMEMBER: Never book without checking availability first. This prevents double-booking!"""
     )
