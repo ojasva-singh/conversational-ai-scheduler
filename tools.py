@@ -189,10 +189,7 @@ def book_meeting(summary: str, start_iso: str, duration_minutes: int = 60):
             }
         }
         
-        created_event = service.events().insert(
-            calendarId=calendar_id,
-            body=event
-        ).execute()
+        created_event = service.events().insert(calendarId=calendar_id, body=event).execute()
         
         # Return simple confirmation with ISO timestamp
         return f"Meeting '{summary}' booked successfully at {start_iso}"
