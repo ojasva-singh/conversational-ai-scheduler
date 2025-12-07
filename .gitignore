@@ -29,3 +29,7 @@ chainlit.log
 
 #Reports
 technical_report.md
+
+#tkinter
+ui_app.py
+
