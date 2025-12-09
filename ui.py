@@ -41,7 +41,7 @@ class AgentWorker(QThread):
         self.stop_event = asyncio.Event()
         self.loop = None
         
-        # Initialize Tools (Same as before)
+        # Initialize Tools
         self.tools_map = {
             "get_current_time": lambda: tools.get_current_time(),
             "list_upcoming_events": lambda max_results=5: tools.list_upcoming_events(max_results),
@@ -52,12 +52,12 @@ class AgentWorker(QThread):
         }
         
         self.tool_declarations = [
-            {"name": "get_current_time", "description": "Returns current date/time.", "parameters": {"type": "object", "properties": {}}},
-            {"name": "list_upcoming_events", "description": "Lists next 5 events.", "parameters": {"type": "object", "properties": {"max_results": {"type": "integer", "default": 5}}}},
-            {"name": "check_specific_slot", "description": "Checks if a specific slot is free.", "parameters": {"type": "object", "properties": {"start_iso": {"type": "string"}, "duration_minutes": {"type": "integer", "default": 60}}, "required": ["start_iso"]}},
-            {"name": "find_nearest_slots", "description": "Finds free slots.", "parameters": {"type": "object", "properties": {"start_search_iso": {"type": "string"}, "duration_minutes": {"type": "integer", "default": 60}}, "required": ["start_search_iso"]}},
-            {"name": "smart_check_availability", "description": "Checks slot + suggests alternatives.", "parameters": {"type": "object", "properties": {"start_iso": {"type": "string"}, "duration": {"type": "integer", "default": 60}}, "required": ["start_iso"]}},
-            {"name": "book_meeting", "description": "Books a meeting.", "parameters": {"type": "object", "properties": {"summary": {"type": "string"}, "start_iso": {"type": "string"}, "duration_minutes": {"type": "integer", "default": 60}}, "required": ["summary", "start_iso"]}}
+            {"name": "get_current_time", "description": "Returns the current date and time in Asia/Kolkata timezone. Use this to understand 'now' and calculate relative times.", "parameters": {"type": "object", "properties": {}}},
+            {"name": "list_upcoming_events", "description": "Lists the next 5 upcoming events.", "parameters": {"type": "object", "properties": {"max_results": {"type": "integer", "default": 5}}}},
+            {"name": "check_specific_slot", "description": "Checks if a specific time slot is free. Returns 'Available' or conflict details.", "parameters": {"type": "object", "properties": {"start_iso": {"type": "string"}, "duration_minutes": {"type": "integer", "default": 60}}, "required": ["start_iso"]}},
+            {"name": "find_nearest_slots", "description": "Finds up to 3 free time slots starting from a given time, within the next 48 hours, usually between 9 AM - 6 PM , but open to find slots even early morning or late night.", "parameters": {"type": "object", "properties": {"start_search_iso": {"type": "string"}, "duration_minutes": {"type": "integer", "default": 60}}, "required": ["start_search_iso"]}},
+            {"name": "smart_check_availability", "description": "Smart availability checker - checks if a slot is free, and if busy, automatically suggests 3 alternative times.", "parameters": {"type": "object", "properties": {"start_iso": {"type": "string"}, "duration": {"type": "integer", "default": 60}}, "required": ["start_iso"]}},
+            {"name": "book_meeting", "description": "Books a meeting at the specified time. Only call this after user confirmation.", "parameters": {"type": "object", "properties": {"summary": {"type": "string"}, "start_iso": {"type": "string"}, "duration_minutes": {"type": "integer", "default": 60}}, "required": ["summary", "start_iso"]}}
         ]
 
     async def listen_mic(self):

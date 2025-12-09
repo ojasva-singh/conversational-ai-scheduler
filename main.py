@@ -72,7 +72,7 @@ tool_check_specific_slot_declaration = {
 
 tool_find_nearest_slots_declaration = {
     "name": "find_nearest_slots",
-    "description": "Finds up to 3 free time slots starting from a given time, within the next 48 hours during business hours (9 AM - 6 PM)",
+    "description": "Finds up to 3 free time slots starting from a given time, within the next 48 hours, usually between 9 AM - 6 PM , but open to find slots even early morning or late night.",
     "parameters": {
         "type": "object",
         "properties": {
